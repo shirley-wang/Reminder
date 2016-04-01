@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // todobutton call adding new task popup
         Button todoButton = (Button)findViewById(R.id.todo_button);
         todoButton.setOnClickListener(
                 new Button.OnClickListener(){
