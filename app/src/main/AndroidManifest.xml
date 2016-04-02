@@ -20,6 +20,10 @@
             android:name=".TodoList"
             android:label="@string/title_activity_todo_list" >
         </activity>
+        <activity
+            android:name=".popupWindow"
+            android:theme="@style/AppTheme.popTheme">
+        </activity>
     </application>
 
 </manifest>
