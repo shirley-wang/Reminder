@@ -8,14 +8,15 @@ import java.sql.Time;
 public class Task {
     private int id;
     private String message;
-    public Task()
-    {
+    private String date;
+
+    public Task() {
 
     }
 
-    public Task(String message)
-    {
-        this.message=message;
+    public Task(String message, String date) {
+        this.message = message;
+        this.date = date;
     }
 
 
@@ -25,5 +26,13 @@ public class Task {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

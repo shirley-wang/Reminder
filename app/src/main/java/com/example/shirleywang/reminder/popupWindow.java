@@ -2,8 +2,10 @@ package com.example.shirleywang.reminder;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,7 +19,9 @@ public class popupWindow extends Activity {
     Button addTaskButton;
     Button cancelButton;
     EditText message;
+    EditText date;
     TextView tasks;
+    private static final String TAG = "ShirleysMessage";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,12 +40,15 @@ public class popupWindow extends Activity {
         addTaskButton = (Button)findViewById(R.id.confirm_adding_button);
         cancelButton = (Button)findViewById(R.id.cancel_adding_button);
         message = (EditText)findViewById(R.id.task_message);
-        dbHandler = new MyDBHandler(this,null,null,1);
+        date = (EditText)findViewById(R.id.task_date);
         tasks = (TextView)findViewById(R.id.tasks_view);
+        dbHandler = new MyDBHandler(this);
+
         //Cancel button to go to previous page
         cancelButton.setOnClickListener(
                 new Button.OnClickListener(){
                     public void onClick(View v){
+                        //dbHandler.deleteTable();
                         finish();
                     }
                 }
@@ -52,21 +59,36 @@ public class popupWindow extends Activity {
                 new Button.OnClickListener(){
                     public void onClick(View v){
                         addButtonClicked();
-                        //printData();
+                        printData();
                     }
                 }
         );
     }
 
     public void addButtonClicked(){
-        Task task = new Task(message.getText().toString());
-        dbHandler.addTask(task);
+        dbHandler.open();
+        Task task = new Task(message.getText().toString(),date.getText().toString());
+        dbHandler.insertTask(task);
+        dbHandler.close();
         finish();
     }
 
     public void printData(){
-        String str = dbHandler.toString();
-        tasks.setText(str);
-        message.setText("");
+        dbHandler.open();
+        Cursor c = dbHandler.getAllTasks();
+        if (c.moveToFirst())
+        {
+            do {
+                DisplayRecord(c);
+            } while (c.moveToNext());
+        }
+        dbHandler.close();
+    }
+
+    public void DisplayRecord(Cursor c) {
+        tasks.append(
+                "id: " + c.getString(0) +
+                        "Message: " + c.getString(1) +
+                        "Due Date:  " + c.getString(2));
     }
 }

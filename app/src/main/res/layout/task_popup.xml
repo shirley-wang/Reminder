@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/task_message"
-        android:layout_above="@+id/confirm_adding_button"
+        android:layout_above="@+id/task_date"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -43,5 +43,14 @@
         android:layout_below="@+id/confirm_adding_button"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="68dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:ems="10"
+        android:id="@+id/task_date"
+        android:layout_above="@+id/confirm_adding_button"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
